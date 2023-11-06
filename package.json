@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@excalidraw/excalidraw": "^0.16.1",
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "name": "proyecto_final_backend",
+  "description": "Esta aplicación permite a los usuarios almacenar y gestionar sus logros obtenidos en videojuegos, brindando la posibilidad de registrarlos de manera sencilla y eficiente.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
