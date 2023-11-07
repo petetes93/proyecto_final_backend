@@ -43,18 +43,18 @@ Para Usuarios PREMIUM:
 
 GET /achievements: Recuperar los logros registrados.
 POST /achievements: Registrar un nuevo logro.
-PUT /achievements/{achievement_id}: Modificar un logro existente.
+PUT /achievements/:achievement_id: Modificar un logro existente.
 GET /games: Recuperar la lista de videojuegos.
 GET /games/search?title={search_query}: Buscar videojuegos por título.
 
 
 
-Para Administradores (ADMIN):
+Para Administradores (ADMIN): 
 
 
 POST /games: Crear un nuevo videojuego.
-DELETE /games/{game_id}: Eliminar un videojuego de la plataforma.
+DELETE /games/:game_id: Eliminar un videojuego de la plataforma.
 GET /games/deleted: Recuperar la lista de juegos eliminados.
-PUT /games/restore/{game_id}: Restaurar un juego eliminado desde la papelera.
-PUT /users/deactivate/{user_id}: Desactivar una cuenta de usuario.
-PUT /users/reactivate/{user_id}: Reactivar una cuenta de usuario desactivada.
+PUT /games/restore/:game_id: Restaurar un juego eliminado desde la papelera.
+PUT /users/reactivate/:user_id: Reactivar una cuenta de usuario desactivada.
+PUT /users/deactivate/:user_id: Desactivar una cuenta de usuario.
