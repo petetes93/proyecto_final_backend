@@ -13,20 +13,19 @@ const router = Router()
 const {query} = require('express-validator')
 
 router.get(
-    '/',
-    query('page').isInt().optional(),
-    query('order').isIn(['title', 'platform']).optional(),
+    '/', 
     validate,
     juegoController.getAll
 )
 
 router.get(
-    '/:gameId',  
+    '/:gameId', 
     mongoIdFromParamValidation('gameId'),
     juegoController.getById
 );
 
 router.post('/', auth, juegoValidation, validate, juegoController.create)
+
 router.put(
 	'/:gameId',
 	auth,
@@ -42,3 +41,5 @@ router.delete(
 	mongoIdFromParamValidation('gameId'),
 	juegoController.remove
 )
+
+module.exports = router;

@@ -11,14 +11,12 @@ module.exports = function ( req, res, next) {
             : [...acc[item.path], item.msg]
 
 
-            returnacc
-
-
-
+            return acc
 
         }, {})
         
         return res.status(400).json(errorsResponse)
 
     }
+    next()
 }

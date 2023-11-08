@@ -1,20 +1,27 @@
-const {juego} = require('../models/juego')
+const {Juego} = require('../models/juego')
 
 const create = async (req, res) => {
-    const newJuego = await juego.create(req.body)
+    const newJuego = await Juego.create(req.body)
 
     res.json(newJuego)
 }
 
 const getAll = async (req, res) => {
-const juegos = await juego.find()
+    console.log('esto funciona?');
+const juegos = await Juego.find()
+
 
     res.json(juegos)
+
 }
 
+const getById = async (req, res) => {
+    const juegoId = await Juego.findById(req.params.gameId)
+    res.json(juegoId)
+} 
 
 const update = async (req, res) => {
-    const juego = await juego.findByIdAndUpdate(req.params.juegoId, req.body, {
+    const juego = await Juego.findByIdAndUpdate(req.params.gameId, req.body, {
         new: true,
     })
 
@@ -22,15 +29,16 @@ const update = async (req, res) => {
 }
 
 const remove = async (req, res) => {
-    const juego = await juego.findByIdAndDelete(req.params.juegoId)
+    const juego = await Juego.findByIdAndDelete(req.params.gameId)
 
     if(!juego) return res.status(404).json({msg: 'Este juego no existe'})
 
-    res.json(genre)
+    res.json(juego)
 }
 
 
 module.exports = {
+    getById,
     create,
     getAll,
     update,
