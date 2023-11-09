@@ -47,7 +47,7 @@ PUT /achievements/:achievement_id: Modificar un logro existente.
 GET /games: Recuperar la lista de videojuegos.
 
 // implementar esto en juegos/logros
-*GET /games/search?title={search_query}: Buscar videojuegos por título.*
+GET /games/search?title={search_query}: Buscar videojuegos por título.
 
 
 

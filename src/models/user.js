@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     logros: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Logro' }],
     isAdmin: Boolean,
+    active: Boolean,
 });
 
 const User = mongoose.model('User', userSchema);
