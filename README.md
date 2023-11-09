@@ -45,7 +45,10 @@ GET /achievements: Recuperar los logros registrados.
 POST /achievements: Registrar un nuevo logro.
 PUT /achievements/:achievement_id: Modificar un logro existente.
 GET /games: Recuperar la lista de videojuegos.
-GET /games/search?title={search_query}: Buscar videojuegos por título.
+
+// implementar esto en juegos/logros
+*GET /games/search?title={search_query}: Buscar videojuegos por título.*
+
 
 
 

@@ -1,59 +1,67 @@
-const {logro} = require('../models/logro')
+const {Logro} = require('../models/logro');
 
 const getAll = async (req, res) => {
-    const {page = 1, search, logro, order} = req.query
+    const { page = 1, search, logro, order } = req.query;
 
+    const query = {};
+    let sort = {};
 
-    const query = {}
-    let sort = {}
+    const pageSize = 2;
+    const offset = (page - 1) * pageSize;
+    if (search) query.title = { $regex: search };
 
-    const pageSize = 2
-    const offset = (page - 1) * pageSize
-    if (search) query.title = {$regex: search}
+    if (order) sort[order] = 1;
 
-    if(order) sort[order] = 1
+    try {
+        const logros = await Logro.find(query)
+            .populate('juego')
+            .sort(sort)
+            .limit(pageSize)
+            .skip(offset);
 
-    const logros = await Logro.find(query)
-        .populate('logros')
-        .sort(sort)
-        .limit(pageSize)
-        .skip(offset)
-
-    res.json(logros)
+        res.json(logros);
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
 
 const getById = async (req, res) => {
-    const logro = await Logro.findById(req.params.logroId).populate('logros')
+    try {
+        const logro = await Logro.findById(req.params.logroId).populate('juego');
 
-    res.json(logro)
+        res.json(logro);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
 
 const create = async (req, res) => {
-    console.log(req.user)
-    const newLogro = await logro.create(req.body)
+    console.log(req.user);
+    const newLogro = await Logro.create(req.body);
 
-    res.json(newLogro)
+    res.json(newLogro);
 }
 
-const update = async ( req, res) => {
-    const logro = await Logro.findByIdAndUpdate(req.params.logroId, req.body,{
+const update = async (req, res) => {
+    const logro = await Logro.findByIdAndUpdate(req.params.logroId, req.body, {
         new: true,
-    })
+    });
 
-    res.json(logro)
+    res.json(logro);
 }
 
 const remove = async (req, res) => {
-    const logro = await Logro.findByIdAndDelete(req.params.logroId)
+    const logro = await Logro.findByIdAndDelete(req.params.logroId);
 
-    res.json(logro)
+    res.json(logro);
 }
 
-
-module.exports= {
+module.exports = {
     getAll,
     getById,
     create,
     update,
     remove,
-}
+};
+

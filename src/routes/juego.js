@@ -11,7 +11,7 @@ const {Router} = require('express')
 const router = Router()
 
 const {query} = require('express-validator')
-
+    
 router.get(
     '/', 
     validate,
