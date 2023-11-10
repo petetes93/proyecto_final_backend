@@ -54,6 +54,37 @@ router.put(
     }
 );
 
+router.get(
+    '/', 
+    validate, 
+    async (req, res) => {
+    console.log('¿Esto funciona?');
+    
+        const usuarios = await User.find(); 
+        res.json(usuarios)
+   
+    
+});
+
+router.get(
+    '/:userId',
+     auth,
+      mongoIdFromParamValidation('userId'),
+    
+      (req, res) => {
+    const { userId } = req.params;
+
+    User.findById(userId)
+        .then((user) => {
+            if (!user) {
+                return res.status(404).json({ msg: 'Usuario no encontrado' });
+            }
+
+            res.json({ user });
+        })
+       
+});
+
 router.post(
     '/register',
     body('email')
