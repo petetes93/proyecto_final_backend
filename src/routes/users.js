@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-        { id: user._id, isAdmin: user.isAdmin },
+        { id: user._id,email: user.email, name: user.username, isAdmin: user.isAdmin },
         process.env.privateKey
     );
 

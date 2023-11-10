@@ -1,29 +1,12 @@
 const {Logro} = require('../models/logro');
 
 const getAll = async (req, res) => {
-    const { page = 1, search, logro, order } = req.query;
-
-    const query = {};
-    let sort = {};
-
-    const pageSize = 2;
-    const offset = (page - 1) * pageSize;
-    if (search) query.title = { $regex: search };
-
-    if (order) sort[order] = 1;
-
-    try {
-        const logros = await Logro.find(query)
-            .populate('juego')
-            .sort(sort)
-            .limit(pageSize)
-            .skip(offset);
-
-        res.json(logros);
-        
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+    console.log('esto funciona?');
+    
+    const logro = await Logro.find()
+    
+    
+        res.json(logro)
 }
 
 const getById = async (req, res) => {
@@ -44,11 +27,41 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    const logro = await Logro.findByIdAndUpdate(req.params.logroId, req.body, {
-        new: true,
-    });
-
-    res.json(logro);
+    
+        try {
+            console.log(req.user);
+            console.log(req.params);
+            
+            
+            const userId = req.user.id;
+    
+            const logro = await Logro.findById(req.params.logroId);
+            console.log(logro);
+            // if (!logro) {
+            //     return res.status(403).json({ error: 'No existe el logro' });
+            // }
+            console.log(typeof userId);
+            console.log(typeof logro.user);
+            if(userId === logro.user.toString() ){
+                const updatedLogro = await Logro.findByIdAndUpdate(req.params.logroId, req.body, {
+                    new: true,
+                });
+                
+                res.json(updatedLogro);    
+            }else {
+                return res.status(403).json({ error: 'No tienes acceso a modificar este logro' });
+            }
+            
+    
+        
+            
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        
+    }
+    
+  
+    
 }
 
 const remove = async (req, res) => {

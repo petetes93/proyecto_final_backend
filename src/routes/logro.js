@@ -10,12 +10,11 @@ const validate = require('../middlewares/validate')
 const {Router} = require('express')
 const router = Router()
 
-const {query} = require('express-validator')
+
 
 router.get(
     '/',
-    // query('page').isInt().optional(),
-	// query('order').isIn(['date', 'title']).optional(),
+   
     validate,
     logroController.getAll
 )
