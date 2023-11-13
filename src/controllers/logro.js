@@ -1,4 +1,6 @@
+const mongoose = require('mongoose')
 const {Logro} = require('../models/logro');
+const { User } = require('../models/user')
 
 const getAll = async (req, res) => {
     console.log('esto funciona?');
@@ -20,11 +22,28 @@ const getById = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    console.log(req.user);
-    const newLogro = await Logro.create(req.body);
+    try {
+        console.log(req.user);
+        const userId = req.user.id;
 
-    res.json(newLogro);
+        let newLogroData = {
+            ...req.body,
+            user: new mongoose.Types.ObjectId(userId)
+        };
+
+        const newLogro = await Logro.create(newLogroData);
+
+        await User.findByIdAndUpdate(userId, { $push: { logros: newLogro._id } });
+
+        res.json(newLogro);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al crear el logro' });
+    }
 }
+
+
+
 
 const update = async (req, res) => {
     
