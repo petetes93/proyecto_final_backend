@@ -60,7 +60,7 @@ router.get(
     async (req, res) => {
     console.log('¿Esto funciona?');
     
-        const usuarios = await User.find(); 
+        const usuarios = await User.find().populate('logros').exec(); 
         res.json(usuarios)
    
     
