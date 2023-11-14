@@ -65,7 +65,7 @@ router.get(
             populate: {
               path: 'juego',
               model: 'Juego'
-            } 
+            }
          }).exec(); 
         res.json(usuarios)
    
@@ -78,10 +78,15 @@ router.get(
       mongoIdFromParamValidation('userId'),
     
       (req, res) => {
+        
     const { userId } = req.params;
 
-    User.findById(userId)
+    User.findById(userId).populate({ 
+        path: 'logros',
+        select: 'title'
+     })
         .then((user) => {
+            
             if (!user) {
                 return res.status(404).json({ msg: 'Usuario no encontrado' });
             }
