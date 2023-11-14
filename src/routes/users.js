@@ -60,7 +60,13 @@ router.get(
     async (req, res) => {
     console.log('¿Esto funciona?');
     
-        const usuarios = await User.find().populate('logros').exec(); 
+        const usuarios = await User.find().populate({ 
+            path: 'logros',
+            populate: {
+              path: 'juego',
+              model: 'Juego'
+            } 
+         }).exec(); 
         res.json(usuarios)
    
     
